@@ -14,7 +14,7 @@ const {
 
 const axios = require("axios");
 
-const LEADERBOARD_START_ISO = process.env.LEADERBOARD_START_ISO || "2026-03-13T00:00:00";
+const LEADERBOARD_START_ISO = process.env.LEADERBOARD_START_ISO || "2026-03-20T00:00:00";
 const BIWEEKLY_INTERVAL_MS = 15 * 24 * 60 * 60 * 1000;
 const RESET_CHECK_INTERVAL_MS = 60 * 1000;
 const RESET_STATE_PATH = path.join(__dirname, ".leaderboard-reset-state.json");
@@ -225,7 +225,7 @@ client.on("interactionCreate", async (interaction) => {
 
     // ================= LEADERBOARD FORMATTING =================
     const medals = ["🥇", "🥈", "🥉"];
-    const prizes = ["$350", "$225", "$100", "$50", "$25", "$25", "$25"];
+    const prizes = ["$325", "$175", "$100", "$75", "$50", "$50", "$25"];
 
     let rows = users.slice(0, 10).map((u, i) => {
       const medal = medals[i] || `${i + 1}.`;
