@@ -44,6 +44,10 @@ function formatPeriodDate(date) {
   }).format(date);
 }
 
+function toDiscordTimestamp(date, style = "R") {
+  return `<t:${Math.floor(date.getTime() / 1000)}:${style}>`;
+}
+
 function getCurrentLeaderboardWindow(now = new Date()) {
   if (Number.isNaN(leaderboardAnchor.getTime())) {
     throw new Error("Invalid LEADERBOARD_START_ISO value");
@@ -238,10 +242,15 @@ client.on("interactionCreate", async (interaction) => {
       rows.join("\n") +
       "```";
 
+    const countdownText = leaderboardWindow.hasStarted
+      ? `${toDiscordTimestamp(leaderboardWindow.endsAt, "R")}\nResets ${toDiscordTimestamp(leaderboardWindow.endsAt, "F")}`
+      : `${toDiscordTimestamp(leaderboardWindow.startsAt, "R")}\nStarts ${toDiscordTimestamp(leaderboardWindow.startsAt, "F")}`;
+
     // ================= EMBED =================
     const embed = new EmbedBuilder()
       .setTitle("🏆 Winovo MisterTee Leaderboard")
       .setDescription(description)
+      .addFields({ name: "Countdown", value: countdownText })
       .setColor(0xff0000)
       .setFooter({
         text: leaderboardWindow.hasStarted
