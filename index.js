@@ -246,11 +246,18 @@ client.on("interactionCreate", async (interaction) => {
       ? `${toDiscordTimestamp(leaderboardWindow.endsAt, "R")}\nResets ${toDiscordTimestamp(leaderboardWindow.endsAt, "F")}`
       : `${toDiscordTimestamp(leaderboardWindow.startsAt, "R")}\nStarts ${toDiscordTimestamp(leaderboardWindow.startsAt, "F")}`;
 
+    const startDayText = `${toDiscordTimestamp(leaderboardWindow.startsAt, "D")}\n${toDiscordTimestamp(leaderboardWindow.startsAt, "F")}`;
+    const endDayText = `${toDiscordTimestamp(leaderboardWindow.displayEndsAt, "D")}\nEnds ${toDiscordTimestamp(leaderboardWindow.displayEndsAt, "F")}`;
+
     // ================= EMBED =================
     const embed = new EmbedBuilder()
       .setTitle("🏆 Winovo MisterTee Leaderboard")
       .setDescription(description)
-      .addFields({ name: "Countdown", value: countdownText })
+      .addFields(
+        { name: "Starts", value: startDayText, inline: true },
+        { name: "Ends", value: endDayText, inline: true },
+        { name: "Countdown", value: countdownText, inline: true }
+      )
       .setColor(0xff0000)
       .setFooter({
         text: leaderboardWindow.hasStarted
